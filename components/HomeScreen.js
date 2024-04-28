@@ -36,7 +36,7 @@ function HomeScreen() {
 
       </View>
       
-
+{/* regras do PI*/}
       <Text style={styles.informativo}>O propósito deste aplicativo é facilitar aos alunos da UNIVESP a busca por grupos para Projetos Interdisciplinares (PIs), levando em conta variáveis como tema, região e habilidades.
         {"\n"}
 
