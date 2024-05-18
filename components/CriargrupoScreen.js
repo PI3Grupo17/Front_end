@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import {Text,View,Button,StyleSheet,TouchableOpacity,ScrollView, TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { CheckBox } from '@rneui/themed';
 
 function CriargrupoScreen() {
   const navigation = useNavigation();
   const [text, setText] = useState('');
+  const [selectedIndex, setIndex] = React.useState(0);
+
   return (
     <View style={styles.fundo}>
       <View style={styles.retangulo}>
@@ -33,68 +36,80 @@ function CriargrupoScreen() {
 
 
 {/* Area de scrow com identificação do grupo */}
-      <ScrollView>
+      <ScrollView style={styles.pagprinc}>
       <View style={styles.centralizar} >
-        <Text style={styles.informativo}>
-          {'\n'}
-          página criação de grupos não finalizada
-          {'\n'}{'\n'}
-          Tema: .......
-          {'\n'}{'\n'}
-          Resumo tema: {'\n'}.........................................................{'\n'}............................................{'\n'}....................................................{'\n'}.....................................
 
-          {'\n'}{'\n'}
-          Eixo: Computação 
-          {'\n'} {'\n'}
-          Participantes: 5/8{'\n'}{'\n'}
+      <Text style={styles.titulo}> Cadastre um novo grupo: </Text>
 
-          Integrantes:
-          {'\n'}
-          Beatriz Santos => Relatórios {'\n'}
-          Lais Pereira => Programação {'\n'}
-          Larissa Alves => Relatórios {'\n'}
-          Maria Lúcia => Relatórios {'\n'}
-          Monise Da Silva => Programação {'\n'}
-          {'\n'}
-          {'\n'}
-          ________________________________________
-          {'\n'}
-          Quer Participar desse grupo?{'\n'}
-          Digite seu nome e comece a interagir agora mesmo
-          {'\n'}
-          {'\n'}
-        </Text> 
-        
-        <TextInput style={styles.pesquisa}
-            placeholder="Digite seu nome e/ou e-mail "
+       <TextInput style={styles.pesquisa}
+        placeholder="Nome do grupo"
+        onChangeText={newText => setText(newText)}
+        defaultValue={text}
+      />
+
+       <TextInput style={styles.pesquisa}
+        placeholder="Tema"
+        onChangeText={newText => setText(newText)}
+        defaultValue={text}
+      />
+
+          <TextInput style={styles.pesquisa}
+            placeholder="Resumo do tema"
             onChangeText={newText => setText(newText)}
             defaultValue={text}
           />
+          <TextInput style={styles.pesquisa}
+            placeholder="integrantes (maxiomo 8 pessoas"
+            onChangeText={newText => setText(newText)}
+            defaultValue={text}
+          />
+          <Text style={styles.informativo}>
+            ________________________________________
+            {'\n'}
+            {'\n'}
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('#')}>
-          <Text> Participar</Text>
+            Eixo:    {'\n'}
+          </Text>
+          <View style={styles.pag}>
+            <CheckBox
+              checked={selectedIndex === 0}
+              onPress={() => setIndex(0)}
+              iconType="material-community"
+              checkedIcon="radiobox-marked"
+              uncheckedIcon="radiobox-blank"
+            />
+            <Text> Computação   </Text>
+          </View>
+
+          <View style={styles.pag}>
+            <CheckBox
+              checked={selectedIndex === 1}
+              onPress={() => setIndex(1)}
+              iconType="material-community"
+              checkedIcon="radiobox-marked"
+              uncheckedIcon="radiobox-blank"
+            />
+            <Text> Licenciatura    </Text>
+          </View>
+
+          <View style={styles.pag}>
+            <CheckBox
+              checked={selectedIndex === 3}
+              onPress={() => setIndex(3)}
+              iconType="material-community"
+              checkedIcon="radiobox-marked"
+              uncheckedIcon="radiobox-blank"
+            />
+            <Text> Administração </Text>
+          </View>
+
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('#')}>
+          <Text> Criar grupo </Text>
         </TouchableOpacity>
 
-          <Text> {'\n'}Chat do grupo </Text>
-          <View style={styles.chat}>
-            <Text style={styles.bolinha}>F</Text>
-            <Text> Fulano de tal falou isso isso isso blA bla bla bla </Text>
-          </View>
-          <View style={styles.chat}>
-            <Text style={styles.bolinha}>F</Text>
-            <Text> Fulano de tal falou isso isso isso blA bla bla bla </Text>
-          </View>
-          <View style={styles.chat}>
-            <Text style={styles.bolinha}>F</Text>
-            <Text> Fulano de tal falou isso issoisso blA bla bla bla </Text>
-          </View>
-          <View style={styles.chat}>
-            <Text style={styles.bolinha}>F</Text>
-            <Text> Fulano de tal falou isso isso isso blA bla bla bla </Text>
-          </View>
-          <Text>{'\n'}{'\n'}{'\n'}{'\n'}{'\n'}{'\n'}{'\n'}{'\n'} </Text>
         </View>
       </ScrollView>
     </View>
@@ -107,6 +122,19 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     alignItems: 'center',
+  },
+    pagprinc:{
+      width: '100%',
+    },
+    titulo:{
+      marginTop: 10,
+    },
+  pag: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 100,
   },
   retangulo: {
     width: '100%',
@@ -133,42 +161,31 @@ const styles = StyleSheet.create({
     marginTop: '10%',
     textAlign: 'center',
   },
-   pesquisa: {
+  pesquisa: {
     width: '70%',
-    height: 90,
+    height: 70,
     borderRadius: 50,
     paddingLeft: 15,
     color: '#6D9886',
     backgroundColor: '#F7F7F7',
-    marginBottom: 20,
+    marginTop: 15,
   },
     button: {
     width: '70%',
-    height: '7%',
+    height: 50,
     borderRadius: 50,
     color: '#6D9886',
     backgroundColor: '#6D9886',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 20,
+    marginBottom: 50,
   },
   centralizar: {
     alignItems: 'center',
   },
-  chat: {
-    flex: 1,
-    flexDirection: 'row',
-    padding: 20,
-  },
-  bolinha: {
-    backgroundColor: '#6D9886',
-    borderRadius: 50,
-    width: 30,
-    height:30,
-    textAlign: 'center',
-    alignItems: 'center',
-    paddingTop: 6,
-    marginRight: 3,
-  },
+
+
 
 });
 
