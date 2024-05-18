@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Text,View,Button,StyleSheet,TouchableOpacity,ScrollView, TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-function GrupocriadoScreen() {
+function CriargrupoScreen() {
   const navigation = useNavigation();
   const [text, setText] = useState('');
   return (
@@ -18,15 +18,15 @@ function GrupocriadoScreen() {
           <Text> Grupos</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('GrupoScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
           <Text> Regras</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('GrupoScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('PesquisaScreen')}>
           <Text> Pesquisa</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('GrupoScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('QuemsomosScreen')}>
           <Text> Quem {'\n'} Somos</Text>
         </TouchableOpacity>
       </View>
@@ -37,7 +37,7 @@ function GrupocriadoScreen() {
       <View style={styles.centralizar} >
         <Text style={styles.informativo}>
           {'\n'}
-          GRUPO 1
+          página criação de grupos não finalizada
           {'\n'}{'\n'}
           Tema: .......
           {'\n'}{'\n'}
@@ -172,4 +172,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default GrupocriadoScreen;
+export default CriargrupoScreen;

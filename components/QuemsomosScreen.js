@@ -18,15 +18,15 @@ function QuemsomosScreen() {
           <Text> Grupos</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('GrupoScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
           <Text> Regras</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('GrupoScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('PesquisaScreen')}>
           <Text> Pesquisa</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('GrupoScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('QuemsomosScreen')}>
           <Text> Quem {'\n'} Somos</Text>
         </TouchableOpacity>
       </View>

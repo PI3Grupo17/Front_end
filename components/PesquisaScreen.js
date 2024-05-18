@@ -20,17 +20,17 @@ function PesquisaScreen() {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('GrupoScreen')}>
+        onPress={() => navigation.navigate('HomeScreen')}>
         <Text> Regras</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('GrupoScreen')}>
+        onPress={() => navigation.navigate('PesquisaScreen')}>
         <Text> Pesquisa</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('GrupoScreen')}>
+        onPress={() => navigation.navigate('QuemsomosScreen')}>
           <Text> Quem {"\n"} Somos</Text>
         </TouchableOpacity>
 

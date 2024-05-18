@@ -1,10 +1,29 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {Text,View,Button,StyleSheet,TouchableOpacity,ScrollView, TextInput} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 function GrupocriadoScreen() {
-  const navigation = useNavigation();
+const navigation = useNavigation();
+  const route = useRoute(); // Usando useRoute para acessar os parâmetros da rota
+  const { grupo } = route.params; // Obtendo o grupoId dos parâmetros da rota
   const [text, setText] = useState('');
+  const [integrantes, setIntegrantes] = useState([]);
+  
+useEffect(() => {
+    // Função para buscar os integrantes do grupo
+    const fetchIntegrantes = async () => {
+      try {
+        const response = await fetch(`http://3.144.174.81/integrantes/${grupo.id}`);
+        const data = await response.json();
+        setIntegrantes(data); // Define os integrantes retornados da API
+      } catch (error) {
+        console.error('Erro ao buscar integrantes do grupo:', error);
+      }
+    };
+
+    fetchIntegrantes(); // Chama a função para buscar os integrantes quando o componente é montado
+  }, [grupo]); // Executa sempre que o grupoId mudar
+
   return (
     <View style={styles.fundo}>
       <View style={styles.retangulo}>
@@ -18,15 +37,15 @@ function GrupocriadoScreen() {
           <Text> Grupos</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('GrupoScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
           <Text> Regras</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('GrupoScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('PesquisaScreen')}>
           <Text> Pesquisa</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('GrupoScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('QuemsomosScreen')}>
           <Text> Quem {'\n'} Somos</Text>
         </TouchableOpacity>
       </View>
@@ -37,34 +56,29 @@ function GrupocriadoScreen() {
       <View style={styles.centralizar} >
         <Text style={styles.informativo}>
           {'\n'}
-          GRUPO 1
+          {grupo.nome}
           {'\n'}{'\n'}
-          Tema: .......
+          Tema: {grupo.tema}
           {'\n'}{'\n'}
-          Resumo tema: {'\n'}.........................................................{'\n'}............................................{'\n'}....................................................{'\n'}.....................................
-
+          Resumo: {grupo.resumo}
           {'\n'}{'\n'}
-          Eixo: Computação 
-          {'\n'} {'\n'}
-          Participantes: 5/8{'\n'}{'\n'}
-
+          Participantes: {integrantes.length}/8
+          {'\n'}{'\n'}
           Integrantes:
-          {'\n'}
-          Beatriz Santos => Relatórios {'\n'}
-          Lais Pereira => Programação {'\n'}
-          Larissa Alves => Relatórios {'\n'}
-          Maria Lúcia => Relatórios {'\n'}
-          Monise Da Silva => Programação {'\n'}
-          {'\n'}
-          {'\n'}
-          ________________________________________
-          {'\n'}
-          Quer Participar desse grupo?{'\n'}
-          Digite seu nome e comece a interagir agora mesmo
-          {'\n'}
-          {'\n'}
         </Text> 
+          
         
+        {integrantes.map((integrante, index) => (
+              <View key={index}>
+                <Text>Nome: {integrante.nome}</Text>
+                <Text>Email: {integrante.email}</Text>
+                <Text>Função: {integrante.funcao}</Text>
+                <Text>Eixo: {integrante.eixo}</Text>
+                {/* Adicione mais informações conforme necessário */}
+              </View>
+            ))}
+
+
         <TextInput style={styles.pesquisa}
             placeholder="Digite seu nome e/ou e-mail "
             onChangeText={newText => setText(newText)}

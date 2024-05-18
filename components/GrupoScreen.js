@@ -1,189 +1,85 @@
 import { Text, View, Image, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
 
 export default function GrupoScreen() {
   const navigation = useNavigation();
+  const [dados, setDados] = useState([]);
+
+useEffect(() => {
+        // Função para chamar o endpoint da API e definir os dados
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://3.144.174.81/grupos');
+                const data = await response.json();
+                setDados(data); // Define os dados retornados da API
+            } catch (error) {
+                console.error('Erro ao buscar dados da API:', error);
+            }
+        };
+
+        fetchData(); // Chama a função para buscar os dados quando o componente é montado
+
+        // Limpa os dados quando o componente é desmontado para evitar vazamentos de memória
+        return () => setDados([]);
+    }, []);
+
 
   return (
-    
-    <View style={styles.fundo}>
-      <View style={styles.cabecario}>
-        <Text style={styles.fonte}>PI </Text>
-        <Text style={styles.fonte}>Temas e grupos</Text>
-      </View>
 
-{/* Menu principal */}
-      <View style={styles.menu}>
-        <TouchableOpacity
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupos</Text>
-      </TouchableOpacity>
+        <View style={styles.fundo}>
+            <View style={styles.cabecario}>
+                <Text style={styles.fonte}>PI</Text>
+                <Text style={styles.fonte}>Temas e grupos</Text>
+            </View>
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Regras</Text>
-      </TouchableOpacity>
+            {/* Menu principal */}
+            <View style={styles.menu}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('GrupoScreen')}>
+                    <Text> Grupos</Text>
+                </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Pesquisa</Text>
-      </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('HomeScreen')}>
+                    <Text> Regras</Text>
+                </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Quem {"\n"} Somos</Text>
-      </TouchableOpacity>
-      </View>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('PesquisaScreen')}>
+                    <Text> Pesquisa</Text>
+                </TouchableOpacity>
 
-{/* Criar grupos */}      
-      <Text style={styles.fonte}> Confira os grupos {'\n'} que foram criados</Text>
-      <TouchableOpacity style={styles.criargrupo}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Ou crie seu grupo aqui + {"\n"}{"\n"}</Text>
-      </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('QuemsomosScreen')}>
+                    <Text> Quem {"\n"} Somos</Text>
+                </TouchableOpacity>
+            </View>
 
-{/* Grupos criados */}
- <ScrollView >
- <View style={styles.listagrupos}>
-   <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 1</Text>
-      </TouchableOpacity>
+            {/* Criar grupos */}
+            <Text style={styles.fonte}> Confira os grupos {'\n'} que foram criados</Text>
+            <TouchableOpacity style={styles.criargrupo}
+                              onPress={() => navigation.navigate('CriargrupoScreen')}>
+                <Text> Ou crie seu grupo aqui + {"\n"}{"\n"}</Text>
+            </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 2</Text>
-      </TouchableOpacity>
+            {/* Grupos criados */}
+            <ScrollView>
+                <View style={styles.listagrupos}>
+                    {/* Mapeia os dados retornados da API para criar os botões dinamicamente */}
+                    {dados.map((item, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            style={styles.button}
+                            onPress={() => navigation.navigate('GrupocriadoScreen', { grupo: item })}>
+                            <Text>{item.nome}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+            </ScrollView>
+        </View>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 3</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 4</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 5</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 6</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 7</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 8</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 9</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 10</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 11</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 12</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 1</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 2</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 3</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 4</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 5</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 6</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 7</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 8</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 9</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 10</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 11</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('GrupoScreen')}>
-        <Text> Grupo 12</Text>
-      </TouchableOpacity>
-  </View>
-  </ScrollView>
-
-
-    </View>
-    
-  );
+    );
 }
 
 const styles = StyleSheet.create({
